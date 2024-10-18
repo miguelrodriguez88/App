@@ -162,61 +162,76 @@
         }
 
         // Función para exportar a PDF
-        async function exportarAPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            let yOffset = 10;
+// Función para exportar a PDF toda la información visible en la página
+async function exportarAPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let yOffset = 10;
 
-            doc.setFontSize(16);
-            doc.text("Datos de Distribuidor:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('distribuidor').value, 10, yOffset += 10);
+    // Exportar datos de Distribuidor
+    doc.setFontSize(16);
+    doc.text("Datos de Distribuidor:", 10, yOffset);
+    doc.setFontSize(12);
+    doc.text(document.getElementById('distribuidor').value, 10, yOffset += 10);
 
-            yOffset += 10;
-            doc.text("Fotos del Distribuidor:", 10, yOffset);
-            const fotosDistribuidor = JSON.parse(localStorage.getItem('fotosDistribuidor')) || [];
-            await agregarFotosAlPDF(doc, fotosDistribuidor, yOffset);
-            yOffset += fotosDistribuidor.length * 60;
+    // Exportar fotos de Distribuidor
+    yOffset += 10;
+    doc.text("Fotos del Distribuidor:", 10, yOffset);
+    const fotosDistribuidor = JSON.parse(localStorage.getItem('fotosDistribuidor')) || [];
+    await agregarFotosAlPDF(doc, fotosDistribuidor, yOffset);
+    yOffset += fotosDistribuidor.length * 60;
 
-            doc.addPage();
-            yOffset = 10;
-            doc.text("Datos de Cañerías:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('canerias').value, 10, yOffset += 10);
+    // Exportar datos de Cañerías
+    doc.addPage();
+    yOffset = 10;
+    doc.setFontSize(16);
+    doc.text("Datos de Cañerías:", 10, yOffset);
+    doc.setFontSize(12);
+    doc.text(document.getElementById('canerias').value, 10, yOffset += 10);
 
-            yOffset += 10;
-            doc.text("Fotos de Cañerías:", 10, yOffset);
-            const fotosCanerias = JSON.parse(localStorage.getItem('fotosCanerias')) || [];
-            await agregarFotosAlPDF(doc, fotosCanerias, yOffset);
-            yOffset += fotosCanerias.length * 60;
+    // Exportar fotos de Cañerías
+    yOffset += 10;
+    doc.text("Fotos de Cañerías:", 10, yOffset);
+    const fotosCanerias = JSON.parse(localStorage.getItem('fotosCanerias')) || [];
+    await agregarFotosAlPDF(doc, fotosCanerias, yOffset);
+    yOffset += fotosCanerias.length * 60;
 
-            doc.addPage();
-            yOffset = 10;
-            doc.text("Datos de Mangueras:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('mangueras').value, 10, yOffset += 10);
+    // Exportar datos de Mangueras
+    doc.addPage();
+    yOffset = 10;
+    doc.setFontSize(16);
+    doc.text("Datos de Mangueras:", 10, yOffset);
+    doc.setFontSize(12);
+    doc.text(document.getElementById('mangueras').value, 10, yOffset += 10);
 
-            yOffset += 10;
-            doc.text("Fotos de Mangueras:", 10, yOffset);
-            const fotosMangueras = JSON.parse(localStorage.getItem('fotosMangueras')) || [];
-            await agregarFotosAlPDF(doc, fotosMangueras, yOffset);
+    // Exportar fotos de Mangueras
+    yOffset += 10;
+    doc.text("Fotos de Mangueras:", 10, yOffset);
+    const fotosMangueras = JSON.parse(localStorage.getItem('fotosMangueras')) || [];
+    await agregarFotosAlPDF(doc, fotosMangueras, yOffset);
 
-            doc.save('datos_y_fotos.pdf');
-        }
+    // Guardar el PDF
+    doc.save('datos_y_fotos_completos.pdf');
+}
 
-        async function agregarFotosAlPDF(doc, fotos, yOffset) {
-            for (const foto of fotos) {
-                const img = new Image();
-                img.src = foto;
-                await new Promise((resolve) => {
-                    img.onload = function() {
-                        doc.addImage(img, 'PNG', 10, yOffset, 180, 150);
-                        yOffset += 60;
-                        resolve();
-                    };
-                });
-            }
-        }
+// Función auxiliar para agregar fotos al PDF
+async function agregarFotosAlPDF(doc, fotos, yOffset) {
+    for (const foto of fotos) {
+        const img = new Image();
+        img.src = foto;
+        await new Promise((resolve) => {
+            img.onload = function() {
+                doc.addImage(img, 'PNG', 10, yOffset, 180, 150); // Ajustar las dimensiones si es necesario
+                yOffset += 60;
+                resolve();
+            };
+        });
+    }
+}
+
+// Evento para exportar toda la información y fotos cuando se haga clic en "Exportar a PDF"
+document.getElementById('exportarPDF').addEventListener('click', exportarAPDF);
+
 
         function enviarPorWhatsApp() {
             // Generar PDF primero
