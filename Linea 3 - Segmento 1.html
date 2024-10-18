@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linea 3 - Segmentos 1</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        video, canvas {
+            display: block;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+        .foto {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Line 3 - Segmento 1</h1>
+
+    <!-- Crear botones -->
+    <button onclick="window.open('Linea 3 - Segmentos 1 - parte fija.html', '_self')">Parte Fija</button>
+    <button onclick="window.open('Linea 3 - Segmentos 1 - parte movil.html', '_self')">Parte Movil</button><br>
+
+    
+
+    <!-- Botón para volver a la página principal -->
+    <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
+
+    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
+
+    <script>
+        function volverAlInicio() {
+            window.location.href = 'Linea 3 - Segmentos.html'; // Redirige a la página principal
+        }
+
+        function volverAPaginaAnterior() {
+            window.history.back(); // Vuelve a la página anterior
+        }
+    </script>
+</body>
+</html>

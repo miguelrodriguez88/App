@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones Botón 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        video, canvas {
+            display: block;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seleccione sus opciones para Botón 1</h1>
+    <form id="form">
+        <label><input type="checkbox" name="opcion" value="Opción 1"> Opción 1</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 2"> Opción 2</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 3"> Opción 3</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 4"> Opción 4</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 5"> Opción 5</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 6"> Opción 6</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 7"> Opción 7</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 8"> Opción 8</label><br>
+    </form>
+    <button onclick="guardarSeleccion()">Guardar Selección</button>
+    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
+
+    <h2>Tomar Foto</h2>
+    <video id="video" width="320" height="240" autoplay></video>
+    <button id="snap">Tomar Foto</button>
+    <canvas id="canvas" width="320" height="240"></canvas>
+
+    <script>
+        const localStorageKey = 'selecciones_botton1'; // Cambia el número para cada botón
+
+        // Acceso a la cámara
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.error("Error al acceder a la cámara: " + err);
+            });
+
+        snap.addEventListener('click', () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Aquí podrías guardar la imagen en localStorage si lo deseas
+            const imageData = canvas.toDataURL('image/png');
+            localStorage.setItem('foto_botton1', imageData);
+            alert('Foto guardada.');
+        });
+
+        function guardarSeleccion() {
+            const opcionesSeleccionadas = [];
+            const checkboxes = document.querySelectorAll('input[name="opcion"]:checked');
+            checkboxes.forEach((checkbox) => {
+                opcionesSeleccionadas.push(checkbox.value);
+            });
+            localStorage.setItem(localStorageKey, JSON.stringify(opcionesSeleccionadas));
+            alert('Selección guardada: ' + opcionesSeleccionadas.join(', '));
+        }
+
+        // Al cargar la página, mostrar las selecciones guardadas
+        window.onload = function() {
+            const seleccionesGuardadas = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+            seleccionesGuardadas.forEach((opcion) => {
+                const checkbox = document.querySelector(`input[value="${opcion}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+
+            // Cargar la foto guardada si existe
+            const fotoGuardada = localStorage.getItem('foto_botton1');
+            if (fotoGuardada) {
+                const img = new Image();
+                img.src = fotoGuardada;
+                document.body.appendChild(img);
+            }
+        };
+
+        function volverAlInicio() {
+            window.location.href = 'index.html'; // Redirige a la página principal
+        }
+    </script>
+</body>
+</html>

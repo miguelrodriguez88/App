@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linea 3 - Segmento 1 - Parte Fija - Lado Izquierdo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        video, canvas {
+            display: block;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+        .foto {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .espacio {
+            margin-top: 20px; /* Espacio entre elementos */
+        }
+    </style>
+</head>
+<body>
+    <h1>Linea 3 - Segmento 1 - Parte Fija - Lado Izquierdo</h1>
+
+    <h2>Lado Izquierdo</h2>
+
+    <form id="formDistribuidor">
+        <label for="distribuidor">Distribuidor:</label>
+        <input type="text" id="distribuidor" name="distribuidor" placeholder="Escribe tu mensaje aquí">
+    </form>
+    
+    <h3>Tomar Foto del Distribuidor</h3>
+    <video id="videoDistribuidor" width="320" height="240" style="display:none;" autoplay></video>
+    <button id="openDistribuidor">Abrir Cámara</button>
+    <button id="snapDistribuidor" style="display:none;">Tomar Foto</button>
+    <button id="closeDistribuidor" style="display:none;">Cerrar Cámara</button>
+    <div id="fotosTomadasDistribuidor"></div> <!-- Div para mostrar fotos -->
+
+    <div class="espacio"></div>
+
+    <form id="formCanerias">
+        <label for="canerias">Cañerías:</label>
+        <input type="text" id="canerias" name="canerias" placeholder="Escribe tu mensaje aquí">
+    </form>
+    
+    <h3>Tomar Foto de Cañerías</h3>
+    <video id="videoCanerias" width="320" height="240" style="display:none;" autoplay></video>
+    <button id="openCanerias">Abrir Cámara</button>
+    <button id="snapCanerias" style="display:none;">Tomar Foto</button>
+    <button id="closeCanerias" style="display:none;">Cerrar Cámara</button>
+    <div id="fotosTomadasCanerias"></div> <!-- Div para mostrar fotos -->
+
+    <div class="espacio"></div>
+
+    <form id="formMangueras">
+        <label for="mangueras">Mangueras:</label>
+        <input type="text" id="mangueras" name="mangueras" placeholder="Escribe tu mensaje aquí">
+    </form>
+    
+    <h3>Tomar Foto de Mangueras</h3>
+    <video id="videoMangueras" width="320" height="240" style="display:none;" autoplay></video>
+    <button id="openMangueras">Abrir Cámara</button>
+    <button id="snapMangueras" style="display:none;">Tomar Foto</button>
+    <button id="closeMangueras" style="display:none;">Cerrar Cámara</button>
+    <div id="fotosTomadasMangueras"></div> <!-- Div para mostrar fotos -->
+
+    <div class="espacio"></div>
+
+    <button id="exportarPDF">Exportar a PDF</button>
+    <button id="enviarWhatsApp">Enviar PDF por WhatsApp</button><br>
+    <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
+    <button id="volverInicio">Volver a Segmentos</button>
+
+    <script>
+        let streamDistribuidor, streamCanerias, streamMangueras;
+
+        function configurarCamara(videoElement, stream) {
+            videoElement.srcObject = stream;
+            videoElement.style.display = 'block';
+        }
+
+        function ocultarCamara(videoElement) {
+            videoElement.srcObject = null;
+            videoElement.style.display = 'none';
+        }
+
+        function tomarFoto(videoElement, fotosDiv, key) {
+            const tempCanvas = document.createElement('canvas');
+            const tempContext = tempCanvas.getContext('2d');
+            tempCanvas.width = videoElement.videoWidth;
+            tempCanvas.height = videoElement.videoHeight;
+            tempContext.drawImage(videoElement, 0, 0, tempCanvas.width, tempCanvas.height);
+            const imageData = tempCanvas.toDataURL('image/png');
+
+            // Mostrar la foto inmediatamente
+            const img = document.createElement('img');
+            img.src = imageData;
+            img.classList.add('foto');
+            fotosDiv.appendChild(img);
+
+            // Botón para eliminar la foto
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = 'Eliminar Foto';
+            btnEliminar.style.marginLeft = '10px';
+            btnEliminar.onclick = () => {
+                eliminarFoto(imageData, key, fotosDiv);
+            };
+            fotosDiv.appendChild(btnEliminar);
+
+            // Guardar en localStorage
+            const fotosGuardadas = JSON.parse(localStorage.getItem(key)) || [];
+            fotosGuardadas.push(imageData);
+            localStorage.setItem(key, JSON.stringify(fotosGuardadas));
+            alert('Foto guardada.');
+        }
+
+        function eliminarFoto(imageData, key, fotosDiv) {
+            const fotosGuardadas = JSON.parse(localStorage.getItem(key)) || [];
+            const index = fotosGuardadas.indexOf(imageData);
+            if (index > -1) {
+                fotosGuardadas.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(fotosGuardadas));
+                fotosDiv.innerHTML = ''; // Limpiar el contenedor
+                fotosGuardadas.forEach((foto) => {
+                    const img = document.createElement('img');
+                    img.src = foto;
+                    img.classList.add('foto');
+                    fotosDiv.appendChild(img);
+
+                    // Botón para eliminar la foto
+                    const btnEliminar = document.createElement('button');
+                    btnEliminar.textContent = 'Eliminar Foto';
+                    btnEliminar.style.marginLeft = '10px';
+                    btnEliminar.onclick = () => {
+                        eliminarFoto(foto, key, fotosDiv);
+                    };
+                    fotosDiv.appendChild(btnEliminar);
+                });
+                alert('Foto eliminada.');
+            }
+        }
+
+        function cerrarCamara(stream, videoElement) {
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+            ocultarCamara(videoElement);
+        }
+
+        // Función para exportar a PDF
+        async function exportarAPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let yOffset = 10;
+
+            doc.setFontSize(16);
+            doc.text("Datos de Distribuidor:", 10, yOffset);
+            doc.setFontSize(12);
+            doc.text(document.getElementById('distribuidor').value, 10, yOffset += 10);
+
+            yOffset += 10;
+            doc.text("Fotos del Distribuidor:", 10, yOffset);
+            const fotosDistribuidor = JSON.parse(localStorage.getItem('fotosDistribuidor')) || [];
+            await agregarFotosAlPDF(doc, fotosDistribuidor, yOffset);
+            yOffset += fotosDistribuidor.length * 60;
+
+            doc.addPage();
+            yOffset = 10;
+            doc.text("Datos de Cañerías:", 10, yOffset);
+            doc.setFontSize(12);
+            doc.text(document.getElementById('canerias').value, 10, yOffset += 10);
+
+            yOffset += 10;
+            doc.text("Fotos de Cañerías:", 10, yOffset);
+            const fotosCanerias = JSON.parse(localStorage.getItem('fotosCanerias')) || [];
+            await agregarFotosAlPDF(doc, fotosCanerias, yOffset);
+            yOffset += fotosCanerias.length * 60;
+
+            doc.addPage();
+            yOffset = 10;
+            doc.text("Datos de Mangueras:", 10, yOffset);
+            doc.setFontSize(12);
+            doc.text(document.getElementById('mangueras').value, 10, yOffset += 10);
+
+            yOffset += 10;
+            doc.text("Fotos de Mangueras:", 10, yOffset);
+            const fotosMangueras = JSON.parse(localStorage.getItem('fotosMangueras')) || [];
+            await agregarFotosAlPDF(doc, fotosMangueras, yOffset);
+
+            doc.save('datos_y_fotos.pdf');
+        }
+
+        async function agregarFotosAlPDF(doc, fotos, yOffset) {
+            for (const foto of fotos) {
+                const img = new Image();
+                img.src = foto;
+                await new Promise((resolve) => {
+                    img.onload = function() {
+                        doc.addImage(img, 'PNG', 10, yOffset, 180, 150);
+                        yOffset += 60;
+                        resolve();
+                    };
+                });
+            }
+        }
+
+        function enviarPorWhatsApp() {
+            // Generar PDF primero
+            exportarAPDF().then(() => {
+                const mensaje = "Aquí están los datos y fotos del proyecto.";
+                const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
+                window.open(urlWhatsApp, '_blank');
+            });
+        }
+
+        function volverAPaginaAnterior() {
+            window.history.back(); // Vuelve a la página anterior
+        }
+
+        // Manejo de eventos para cámaras
+        document.getElementById('openDistribuidor').addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    streamDistribuidor = mediaStream;
+                    configurarCamara(document.getElementById('videoDistribuidor'), streamDistribuidor);
+                    document.getElementById('snapDistribuidor').style.display = 'inline';
+                    document.getElementById('closeDistribuidor').style.display = 'inline';
+                })
+                .catch(err => {
+                    console.error("Error al acceder a la cámara: " + err);
+                });
+        });
+
+        document.getElementById('snapDistribuidor').addEventListener('click', () => {
+            tomarFoto(document.getElementById('videoDistribuidor'), document.getElementById('fotosTomadasDistribuidor'), 'fotosDistribuidor');
+        });
+
+        document.getElementById('closeDistribuidor').addEventListener('click', () => {
+            cerrarCamara(streamDistribuidor, document.getElementById('videoDistribuidor'));
+            document.getElementById('snapDistribuidor').style.display = 'none';
+            document.getElementById('closeDistribuidor').style.display = 'none';
+        });
+
+        // Similar para Cañerías
+        document.getElementById('openCanerias').addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    streamCanerias = mediaStream;
+                    configurarCamara(document.getElementById('videoCanerias'), streamCanerias);
+                    document.getElementById('snapCanerias').style.display = 'inline';
+                    document.getElementById('closeCanerias').style.display = 'inline';
+                })
+                .catch(err => {
+                    console.error("Error al acceder a la cámara: " + err);
+                });
+        });
+
+        document.getElementById('snapCanerias').addEventListener('click', () => {
+            tomarFoto(document.getElementById('videoCanerias'), document.getElementById('fotosTomadasCanerias'), 'fotosCanerias');
+        });
+
+        document.getElementById('closeCanerias').addEventListener('click', () => {
+            cerrarCamara(streamCanerias, document.getElementById('videoCanerias'));
+            document.getElementById('snapCanerias').style.display = 'none';
+            document.getElementById('closeCanerias').style.display = 'none';
+        });
+
+        // Similar para Mangueras
+        document.getElementById('openMangueras').addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    streamMangueras = mediaStream;
+                    configurarCamara(document.getElementById('videoMangueras'), streamMangueras);
+                    document.getElementById('snapMangueras').style.display = 'inline';
+                    document.getElementById('closeMangueras').style.display = 'inline';
+                })
+                .catch(err => {
+                    console.error("Error al acceder a la cámara: " + err);
+                });
+        });
+
+        document.getElementById('snapMangueras').addEventListener('click', () => {
+            tomarFoto(document.getElementById('videoMangueras'), document.getElementById('fotosTomadasMangueras'), 'fotosMangueras');
+        });
+
+        document.getElementById('closeMangueras').addEventListener('click', () => {
+            cerrarCamara(streamMangueras, document.getElementById('videoMangueras'));
+            document.getElementById('snapMangueras').style.display = 'none';
+            document.getElementById('closeMangueras').style.display = 'none';
+        });
+
+        document.getElementById('exportarPDF').addEventListener('click', exportarAPDF);
+        document.getElementById('enviarWhatsApp').addEventListener('click', enviarPorWhatsApp);
+        document.getElementById('volverInicio').addEventListener('click', () => {
+            window.location.href = 'Linea 3 - Segmentos.html';
+        });
+    </script>
+</body>
+</html>

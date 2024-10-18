@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones Botón 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seleccione sus opciones para Botón 1</h1>
+    <form id="form">
+        <label><input type="checkbox" name="opcion" value="Opción 1"> Opción 1</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 2"> Opción 2</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 3"> Opción 3</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 4"> Opción 4</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 5"> Opción 5</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 6"> Opción 6</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 7"> Opción 7</label><br>
+        <label><input type="checkbox" name="opcion" value="Opción 8"> Opción 8</label><br>
+    </form>
+    <button onclick="guardarSeleccion()">Guardar Selección</button>
+
+    <script>
+        const localStorageKey = 'selecciones_botton4'; // Cambia el número para cada botón
+
+        function guardarSeleccion() {
+            const opcionesSeleccionadas = [];
+            const checkboxes = document.querySelectorAll('input[name="opcion"]:checked');
+            checkboxes.forEach((checkbox) => {
+                opcionesSeleccionadas.push(checkbox.value);
+            });
+            localStorage.setItem(localStorageKey, JSON.stringify(opcionesSeleccionadas));
+            alert('Selección guardada: ' + opcionesSeleccionadas.join(', '));
+        }
+
+        // Al cargar la página, mostrar las selecciones guardadas
+        window.onload = function() {
+            const seleccionesGuardadas = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+            seleccionesGuardadas.forEach((opcion) => {
+                const checkbox = document.querySelector(`input[value="${opcion}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+        };
+    </script>
+</body>
+</html>
