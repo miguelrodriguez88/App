@@ -260,20 +260,20 @@
 
         // Similar para Cañerías
         // Para Cañerías
-document.getElementById('openCanerias').addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ 
+        document.getElementById('openCanerias').addEventListener('click', () => {
+        navigator.mediaDevices.getUserMedia({ 
         video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
-    })
-    .then(mediaStream => {
+        })
+        .then(mediaStream => {
         streamCanerias = mediaStream;
         configurarCamara(document.getElementById('videoCanerias'), streamCanerias);
         document.getElementById('snapCanerias').style.display = 'inline';
         document.getElementById('closeCanerias').style.display = 'inline';
-    })
-    .catch(err => {
+        })
+        .catch(err => {
         console.error("Error al acceder a la cámara: " + err);
-    });
-});
+        });
+        });
 
         document.getElementById('snapCanerias').addEventListener('click', () => {
             tomarFoto(document.getElementById('videoCanerias'), document.getElementById('fotosTomadasCanerias'), 'fotosCanerias');
