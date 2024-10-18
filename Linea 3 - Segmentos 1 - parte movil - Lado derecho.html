@@ -232,18 +232,21 @@
         }
 
         // Manejo de eventos para cámaras
-        document.getElementById('openDistribuidor').addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(mediaStream => {
-                    streamDistribuidor = mediaStream;
-                    configurarCamara(document.getElementById('videoDistribuidor'), streamDistribuidor);
-                    document.getElementById('snapDistribuidor').style.display = 'inline';
-                    document.getElementById('closeDistribuidor').style.display = 'inline';
-                })
-                .catch(err => {
-                    console.error("Error al acceder a la cámara: " + err);
-                });
-        });
+        // Para Distribuidor
+            document.getElementById('openDistribuidor').addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
+        })
+            .then(mediaStream => {
+            streamDistribuidor = mediaStream;
+            configurarCamara(document.getElementById('videoDistribuidor'), streamDistribuidor);
+            document.getElementById('snapDistribuidor').style.display = 'inline';
+            document.getElementById('closeDistribuidor').style.display = 'inline';
+        })
+    .catch(err => {
+        console.error("Error al acceder a la cámara: " + err);
+    });
+});
 
         document.getElementById('snapDistribuidor').addEventListener('click', () => {
             tomarFoto(document.getElementById('videoDistribuidor'), document.getElementById('fotosTomadasDistribuidor'), 'fotosDistribuidor');
