@@ -259,18 +259,21 @@
         });
 
         // Similar para Cañerías
-        document.getElementById('openCanerias').addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(mediaStream => {
-                    streamCanerias = mediaStream;
-                    configurarCamara(document.getElementById('videoCanerias'), streamCanerias);
-                    document.getElementById('snapCanerias').style.display = 'inline';
-                    document.getElementById('closeCanerias').style.display = 'inline';
-                })
-                .catch(err => {
-                    console.error("Error al acceder a la cámara: " + err);
-                });
-        });
+        // Para Cañerías
+document.getElementById('openCanerias').addEventListener('click', () => {
+    navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
+    })
+    .then(mediaStream => {
+        streamCanerias = mediaStream;
+        configurarCamara(document.getElementById('videoCanerias'), streamCanerias);
+        document.getElementById('snapCanerias').style.display = 'inline';
+        document.getElementById('closeCanerias').style.display = 'inline';
+    })
+    .catch(err => {
+        console.error("Error al acceder a la cámara: " + err);
+    });
+});
 
         document.getElementById('snapCanerias').addEventListener('click', () => {
             tomarFoto(document.getElementById('videoCanerias'), document.getElementById('fotosTomadasCanerias'), 'fotosCanerias');
@@ -283,18 +286,21 @@
         });
 
         // Similar para Mangueras
-        document.getElementById('openMangueras').addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(mediaStream => {
-                    streamMangueras = mediaStream;
-                    configurarCamara(document.getElementById('videoMangueras'), streamMangueras);
-                    document.getElementById('snapMangueras').style.display = 'inline';
-                    document.getElementById('closeMangueras').style.display = 'inline';
-                })
-                .catch(err => {
-                    console.error("Error al acceder a la cámara: " + err);
-                });
-        });
+        // Para Mangueras
+document.getElementById('openMangueras').addEventListener('click', () => {
+    navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
+    })
+    .then(mediaStream => {
+        streamMangueras = mediaStream;
+        configurarCamara(document.getElementById('videoMangueras'), streamMangueras);
+        document.getElementById('snapMangueras').style.display = 'inline';
+        document.getElementById('closeMangueras').style.display = 'inline';
+    })
+    .catch(err => {
+        console.error("Error al acceder a la cámara: " + err);
+    });
+});
 
         document.getElementById('snapMangueras').addEventListener('click', () => {
             tomarFoto(document.getElementById('videoMangueras'), document.getElementById('fotosTomadasMangueras'), 'fotosMangueras');
