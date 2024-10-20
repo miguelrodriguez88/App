@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linea 3 - Segmento 1 - Parte Fija - Lado Izquierdo</title>
+    <title>Linea 3 - Segmento 1 - Parte Fija - Lado Derecho</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="input-group">
-            <label for="distribuidor2">distribuidor2:</label>
+            <label for="distribuidor2">Distribuidor:</label>
             <input type="text" id="distribuidor2">
             <input type="file" accept="image/*" capture="camera" id="photo-distribuidor2" onchange="previewPhoto(event, 'preview-distribuidor2', 'delete-distribuidor2')">
             <img id="preview-distribuidor2" src="" alt="Foto del distribuidor2" style="display:none;">
@@ -33,7 +33,7 @@
         </div>
         <br>
         <div class="input-group">
-            <label for="mangueras2">mangueras2:</label>
+            <label for="mangueras2">Mangueras:</label>
             <input type="text" id="mangueras2">
             <input type="file" accept="image/*" capture="camera" id="photo-mangueras2" onchange="previewPhoto(event, 'preview-mangueras2', 'delete-mangueras2')">
             <img id="preview-mangueras2" src="" alt="Foto de mangueras2" style="display:none;">
@@ -42,7 +42,7 @@
 
         <button onclick="guardarDatos()">Guardar Datos</button>
         <button onclick="limpiarCampos()">Limpiar Todo</button>
-        <button id="export-button">Exportar a PDF</button><br>
+        <button id="export-button2">Exportar a PDF</button><br>
         <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
 	    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
     </div>
@@ -109,7 +109,7 @@
             localStorage.removeItem(key);
         }
 
-        document.getElementById('export-button').addEventListener('click', () => {
+        document.getElementById('export-button2').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFontSize(16);
