@@ -5,318 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linea 3 - Segmento 1 - Parte Movil - Lado Derecho</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        video, canvas {
-            display: block;
-            margin-top: 20px;
-            max-width: 100%;
-        }
-        .foto {
-            margin-top: 20px;
-            max-width: 100%;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        .espacio {
-            margin-top: 20px; /* Espacio entre elementos */
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Linea 3 - Segmento 1 - Parte Movil - Lado Derecho</h1>
+    <header>
+        <div class="logo">
+            <img src="LogoTerniumColor.png" alt="Logo">
+            <h1 class="nombre">Linea 3 - Segmento 1 - Parte Movil - Lado Derecho</h1>
+        </div>
+    </header>
 
-    <h2>Lado Derecho</h2>
+    <div class="container">
+        <div class="input-group">
+            <label for="distribuidor3">distribuidor:</label>
+            <input type="text" id="distribuidor3">
+            <input type="file" accept="image/*" capture="camera" id="photo-distribuidor3" onchange="previewPhoto(event, 'preview-distribuidor3', 'delete-distribuidor3')">
+            <img id="preview-distribuidor3" src="" alt="Foto del distribuidor3" style="display:none;">
+            <button id="delete-distribuidor3" class="delete-button" style="display:none;" onclick="deletePhoto('preview-distribuidor3', 'photo-distribuidor3', 'delete-distribuidor3')">Eliminar Foto</button>
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="canerias3">Canerías:</label>
+            <input type="text" id="canerias3">
+            <input type="file" accept="image/*" capture="camera" id="photo-canerias3" onchange="previewPhoto(event, 'preview-canerias3', 'delete-canerias3')">
+            <img id="preview-canerias3" src="" alt="Foto de Canerías" style="display:none;">
+            <button id="delete-canerias3" class="delete-button" style="display:none;" onclick="deletePhoto('preview-canerias3', 'photo-canerias3', 'delete-canerias3')">Eliminar Foto</button>
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="mangueras3">mangueras3:</label>
+            <input type="text" id="mangueras3">
+            <input type="file" accept="image/*" capture="camera" id="photo-mangueras3" onchange="previewPhoto(event, 'preview-mangueras3', 'delete-mangueras3')">
+            <img id="preview-mangueras3" src="" alt="Foto de mangueras3" style="display:none;">
+            <button id="delete-mangueras3" class="delete-button" style="display:none;" onclick="deletePhoto('preview-mangueras3', 'photo-mangueras3', 'delete-mangueras3')">Eliminar Foto</button>
+        </div>
 
-    <form id="formDistribuidor">
-        <label for="distribuidor">Distribuidor:</label>
-        <input type="text" id="distribuidor" name="distribuidor" placeholder="Escribe tu mensaje aquí">
-    </form>
-    
-    <h3>Tomar Foto del Distribuidor</h3>
-    <video id="videoDistribuidor" width="320" height="240" style="display:none;" autoplay></video>
-    <button id="openDistribuidor">Abrir Cámara</button>
-    <button id="snapDistribuidor" style="display:none;">Tomar Foto</button>
-    <button id="closeDistribuidor" style="display:none;">Cerrar Cámara</button>
-    <div id="fotosTomadasDistribuidor"></div> <!-- Div para mostrar fotos -->
-
-    <div class="espacio"></div>
-
-    <form id="formCanerias">
-        <label for="canerias">Cañerías:</label>
-        <input type="text" id="canerias" name="canerias" placeholder="Escribe tu mensaje aquí">
-    </form>
-    
-    <h3>Tomar Foto de Cañerías</h3>
-    <video id="videoCanerias" width="320" height="240" style="display:none;" autoplay></video>
-    <button id="openCanerias">Abrir Cámara</button>
-    <button id="snapCanerias" style="display:none;">Tomar Foto</button>
-    <button id="closeCanerias" style="display:none;">Cerrar Cámara</button>
-    <div id="fotosTomadasCanerias"></div> <!-- Div para mostrar fotos -->
-
-    <div class="espacio"></div>
-
-    <form id="formMangueras">
-        <label for="mangueras">Mangueras:</label>
-        <input type="text" id="mangueras" name="mangueras" placeholder="Escribe tu mensaje aquí">
-    </form>
-    
-    <h3>Tomar Foto de Mangueras</h3>
-    <video id="videoMangueras" width="320" height="240" style="display:none;" autoplay></video>
-    <button id="openMangueras">Abrir Cámara</button>
-    <button id="snapMangueras" style="display:none;">Tomar Foto</button>
-    <button id="closeMangueras" style="display:none;">Cerrar Cámara</button>
-    <div id="fotosTomadasMangueras"></div> <!-- Div para mostrar fotos -->
-
-    <div class="espacio"></div>
-
-    <button id="exportarPDF">Exportar a PDF</button>
-    <button id="enviarWhatsApp">Enviar PDF por WhatsApp</button><br>
-    <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
-    <button id="volverInicio">Volver a Segmentos</button>
+        <button onclick="guardarDatos()">Guardar Datos</button>
+        <button onclick="limpiarCampos()">Limpiar Todo</button>
+        <button id="export-button3">Exportar a PDF</button><br>
+        <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
+	    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
+    </div>
 
     <script>
-        let streamDistribuidor, streamCanerias, streamMangueras;
+        // Cargar datos del localStorage al cargar la página
+        window.onload = function() {
+            const distribuidor3Comment = localStorage.getItem('distribuidor3');
+            const canerias3Comment = localStorage.getItem('canerias3');
+            const mangueras3Comment = localStorage.getItem('mangueras3');
+            const distribuidor3Photo = localStorage.getItem('distribuidor3Photo');
+            const canerias3Photo = localStorage.getItem('canerias3Photo');
+            const mangueras3Photo = localStorage.getItem('mangueras3Photo');
 
-        function configurarCamara(videoElement, stream) {
-            videoElement.srcObject = stream;
-            videoElement.style.display = 'block';
-        }
+            if (distribuidor3Comment) {
+                document.getElementById('distribuidor3').value = distribuidor3Comment;
+                document.getElementById('preview-distribuidor3').src = distribuidor3Photo;
+                document.getElementById('preview-distribuidor3').style.display = 'block';
+                document.getElementById('delete-distribuidor3').style.display = 'inline-block';
+            }
+            if (canerias3Comment) {
+                document.getElementById('canerias3').value = canerias3Comment;
+                document.getElementById('preview-canerias3').src = canerias3Photo;
+                document.getElementById('preview-canerias3').style.display = 'block';
+                document.getElementById('delete-canerias3').style.display = 'inline-block';
+            }
+            if (mangueras3Comment) {
+                document.getElementById('mangueras3').value = mangueras3Comment;
+                document.getElementById('preview-mangueras3').src = mangueras3Photo;
+                document.getElementById('preview-mangueras3').style.display = 'block';
+                document.getElementById('delete-mangueras3').style.display = 'inline-block';
+            }
+        };
 
-        function ocultarCamara(videoElement) {
-            videoElement.srcObject = null;
-            videoElement.style.display = 'none';
-        }
-
-        function tomarFoto(videoElement, fotosDiv, key) {
-            const tempCanvas = document.createElement('canvas');
-            const tempContext = tempCanvas.getContext('2d');
-            tempCanvas.width = videoElement.videoWidth;
-            tempCanvas.height = videoElement.videoHeight;
-            tempContext.drawImage(videoElement, 0, 0, tempCanvas.width, tempCanvas.height);
-            const imageData = tempCanvas.toDataURL('image/png');
-
-            // Mostrar la foto inmediatamente
-            const img = document.createElement('img');
-            img.src = imageData;
-            img.classList.add('foto');
-            fotosDiv.appendChild(img);
-
-            // Botón para eliminar la foto
-            const btnEliminar = document.createElement('button');
-            btnEliminar.textContent = 'Eliminar Foto';
-            btnEliminar.style.marginLeft = '10px';
-            btnEliminar.onclick = () => {
-                eliminarFoto(imageData, key, fotosDiv);
+        function previewPhoto(event, previewId, deleteId) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgElement = document.getElementById(previewId);
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block';
+                document.getElementById(deleteId).style.display = 'inline-block'; // Muestra el botón de eliminar
+                
+                // Guardar la imagen en el localStorage
+                const key = previewId.replace('preview-', '') + 'Photo';
+                localStorage.setItem(key, e.target.result);
             };
-            fotosDiv.appendChild(btnEliminar);
-
-            // Guardar en localStorage
-            const fotosGuardadas = JSON.parse(localStorage.getItem(key)) || [];
-            fotosGuardadas.push(imageData);
-            localStorage.setItem(key, JSON.stringify(fotosGuardadas));
-            alert('Foto guardada.');
+            reader.readAsDataURL(file);
+            
+            // Guardar el comentario en el localStorage
+            const inputId = event.target.id.replace('photo-', '');
+            const comment = document.getElementById(inputId).value;
+            localStorage.setItem(inputId, comment);
         }
 
-        function eliminarFoto(imageData, key, fotosDiv) {
-            const fotosGuardadas = JSON.parse(localStorage.getItem(key)) || [];
-            const index = fotosGuardadas.indexOf(imageData);
-            if (index > -1) {
-                fotosGuardadas.splice(index, 1);
-                localStorage.setItem(key, JSON.stringify(fotosGuardadas));
-                fotosDiv.innerHTML = ''; // Limpiar el contenedor
-                fotosGuardadas.forEach((foto) => {
-                    const img = document.createElement('img');
-                    img.src = foto;
-                    img.classList.add('foto');
-                    fotosDiv.appendChild(img);
-
-                    // Botón para eliminar la foto
-                    const btnEliminar = document.createElement('button');
-                    btnEliminar.textContent = 'Eliminar Foto';
-                    btnEliminar.style.marginLeft = '10px';
-                    btnEliminar.onclick = () => {
-                        eliminarFoto(foto, key, fotosDiv);
-                    };
-                    fotosDiv.appendChild(btnEliminar);
-                });
-                alert('Foto eliminada.');
-            }
+        function deletePhoto(previewId, fileId, deleteId) {
+            document.getElementById(previewId).src = '';
+            document.getElementById(previewId).style.display = 'none';
+            document.getElementById(fileId).value = ''; // Limpia el archivo
+            document.getElementById(deleteId).style.display = 'none'; // Oculta el botón de eliminar
+            
+            // Eliminar del localStorage
+            const key = previewId.replace('preview-', '') + 'Photo';
+            localStorage.removeItem(key);
         }
 
-        function cerrarCamara(stream, videoElement) {
-            if (stream) {
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-            }
-            ocultarCamara(videoElement);
-        }
-
-        // Función para exportar a PDF
-        async function exportarAPDF() {
+        document.getElementById('export-button3').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            let yOffset = 10;
-
             doc.setFontSize(16);
-            doc.text("Datos de Distribuidor:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('distribuidor').value, 10, yOffset += 10);
 
-            yOffset += 10;
-            doc.text("Fotos del Distribuidor:", 10, yOffset);
-            const fotosDistribuidor = JSON.parse(localStorage.getItem('fotosDistribuidor')) || [];
-            await agregarFotosAlPDF(doc, fotosDistribuidor, yOffset);
-            yOffset += fotosDistribuidor.length * 60;
+            // Agregar el logo al PDF
+            const logoImage = document.querySelector('.logo img').src; // Obtener la fuente del logo
+            doc.addImage(logoImage, 'PNG', 20, 10, 60, 25); // Ajusta la posición y el tamaño según sea necesario
 
-            doc.addPage();
-            yOffset = 10;
-            doc.text("Datos de Cañerías:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('canerias').value, 10, yOffset += 10);
+            // Título del documento
+            doc.text("Linea 3 - Segmento 1 - Parte Movil - Lado Derecho", 20, 50);
 
-            yOffset += 10;
-            doc.text("Fotos de Cañerías:", 10, yOffset);
-            const fotosCanerias = JSON.parse(localStorage.getItem('fotosCanerias')) || [];
-            await agregarFotosAlPDF(doc, fotosCanerias, yOffset);
-            yOffset += fotosCanerias.length * 60;
+            const distribuidor3Comment = localStorage.getItem('distribuidor3') || '';
+            const canerias3Comment = localStorage.getItem('canerias3') || '';
+            const mangueras3Comment = localStorage.getItem('mangueras3') || '';
 
-            doc.addPage();
-            yOffset = 10;
-            doc.text("Datos de Mangueras:", 10, yOffset);
-            doc.setFontSize(12);
-            doc.text(document.getElementById('mangueras').value, 10, yOffset += 10);
-
-            yOffset += 10;
-            doc.text("Fotos de Mangueras:", 10, yOffset);
-            const fotosMangueras = JSON.parse(localStorage.getItem('fotosMangueras')) || [];
-            await agregarFotosAlPDF(doc, fotosMangueras, yOffset);
-
-            doc.save('datos_y_fotos.pdf');
-        }
-
-        async function agregarFotosAlPDF(doc, fotos, yOffset) {
-            for (const foto of fotos) {
-                const img = new Image();
-                img.src = foto;
-                await new Promise((resolve) => {
-                    img.onload = function() {
-                        doc.addImage(img, 'PNG', 10, yOffset, 180, 150);
-                        yOffset += 60;
-                        resolve();
-                    };
-                });
+            doc.text(`distribuidor3: ${distribuidor3Comment}`, 20, 70);
+            const distribuidor3Img = localStorage.getItem('distribuidor3Photo');
+            if (distribuidor3Img) {
+                doc.addImage(distribuidor3Img, 'JPEG', 20, 80, 50, 50);
             }
+
+            doc.text(`Canerías: ${canerias3Comment}`, 20, 150);
+            const canerias3Img = localStorage.getItem('canerias3Photo');
+            if (canerias3Img) {
+                doc.addImage(canerias3Img, 'JPEG', 20, 160, 50, 50);
+            }
+
+            doc.text(`mangueras3: ${mangueras3Comment}`, 20, 230);
+            const mangueras3Img = localStorage.getItem('mangueras3Photo');
+            if (mangueras3Img) {
+                doc.addImage(mangueras3Img, 'JPEG', 20, 240, 50, 50);
+            }
+
+            doc.save('Linea 3 - Segmento 1 - Parte Movil - Lado Derecho.pdf');
+        });
+
+        function guardarDatos() {
+            // Guardar comentarios
+            const distribuidor3Comment = document.getElementById('distribuidor3').value;
+            const canerias3Comment = document.getElementById('canerias3').value;
+            const mangueras3Comment = document.getElementById('mangueras3').value;
+            localStorage.setItem('distribuidor3', distribuidor3Comment);
+            localStorage.setItem('canerias3', canerias3Comment);
+            localStorage.setItem('mangueras3', mangueras3Comment);
+
+            // Fotos ya se guardan automáticamente en la función previewPhoto
+            alert("Datos guardados correctamente.");
         }
 
-        function enviarPorWhatsApp() {
-            // Generar PDF primero
-            exportarAPDF().then(() => {
-                const mensaje = "Aquí están los datos y fotos del proyecto.";
-                const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
-                window.open(urlWhatsApp, '_blank');
-            });
+        function limpiarCampos() {
+            // Limpiar campos de texto
+            document.getElementById('distribuidor3').value = '';
+            document.getElementById('canerias3').value = '';
+            document.getElementById('mangueras3').value = '';
+
+            // Limpiar fotos
+            deletePhoto('preview-distribuidor3', 'photo-distribuidor3', 'delete-distribuidor3');
+            deletePhoto('preview-canerias3', 'photo-canerias3', 'delete-canerias3');
+            deletePhoto('preview-mangueras3', 'photo-mangueras3', 'delete-mangueras3');
+
+            // Eliminar todos los datos del localStorage
+            localStorage.removeItem('distribuidor3');
+            localStorage.removeItem('canerias3');
+            localStorage.removeItem('mangueras3');
+            localStorage.removeItem('distribuidor3Photo');
+            localStorage.removeItem('canerias3Photo');
+            localStorage.removeItem('mangueras3Photo');
+
+            alert("Todos los datos han sido eliminados.");
+        }
+
+        function volverAlInicio() {
+            window.location.href = 'Linea 3 - Segmentos.html'; // Redirige a la página principal
         }
 
         function volverAPaginaAnterior() {
             window.history.back(); // Vuelve a la página anterior
         }
-
-        // Manejo de eventos para cámaras
-        // Para Distribuidor
-            document.getElementById('openDistribuidor').addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
-        })
-            .then(mediaStream => {
-            streamDistribuidor = mediaStream;
-            configurarCamara(document.getElementById('videoDistribuidor'), streamDistribuidor);
-            document.getElementById('snapDistribuidor').style.display = 'inline';
-            document.getElementById('closeDistribuidor').style.display = 'inline';
-        })
-    .catch(err => {
-        console.error("Error al acceder a la cámara: " + err);
-    });
-});
-
-        document.getElementById('snapDistribuidor').addEventListener('click', () => {
-            tomarFoto(document.getElementById('videoDistribuidor'), document.getElementById('fotosTomadasDistribuidor'), 'fotosDistribuidor');
-        });
-
-        document.getElementById('closeDistribuidor').addEventListener('click', () => {
-            cerrarCamara(streamDistribuidor, document.getElementById('videoDistribuidor'));
-            document.getElementById('snapDistribuidor').style.display = 'none';
-            document.getElementById('closeDistribuidor').style.display = 'none';
-        });
-
-        // Similar para Cañerías
-        // Para Cañerías
-        document.getElementById('openCanerias').addEventListener('click', () => {
-        navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
-        })
-        .then(mediaStream => {
-        streamCanerias = mediaStream;
-        configurarCamara(document.getElementById('videoCanerias'), streamCanerias);
-        document.getElementById('snapCanerias').style.display = 'inline';
-        document.getElementById('closeCanerias').style.display = 'inline';
-        })
-        .catch(err => {
-        console.error("Error al acceder a la cámara: " + err);
-        });
-        });
-
-        document.getElementById('snapCanerias').addEventListener('click', () => {
-            tomarFoto(document.getElementById('videoCanerias'), document.getElementById('fotosTomadasCanerias'), 'fotosCanerias');
-        });
-
-        document.getElementById('closeCanerias').addEventListener('click', () => {
-            cerrarCamara(streamCanerias, document.getElementById('videoCanerias'));
-            document.getElementById('snapCanerias').style.display = 'none';
-            document.getElementById('closeCanerias').style.display = 'none';
-        });
-
-        // Similar para Mangueras
-        // Para Mangueras
-document.getElementById('openMangueras').addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: { exact: "environment" } } // Solicita la cámara trasera
-    })
-    .then(mediaStream => {
-        streamMangueras = mediaStream;
-        configurarCamara(document.getElementById('videoMangueras'), streamMangueras);
-        document.getElementById('snapMangueras').style.display = 'inline';
-        document.getElementById('closeMangueras').style.display = 'inline';
-    })
-    .catch(err => {
-        console.error("Error al acceder a la cámara: " + err);
-    });
-});
-
-        document.getElementById('snapMangueras').addEventListener('click', () => {
-            tomarFoto(document.getElementById('videoMangueras'), document.getElementById('fotosTomadasMangueras'), 'fotosMangueras');
-        });
-
-        document.getElementById('closeMangueras').addEventListener('click', () => {
-            cerrarCamara(streamMangueras, document.getElementById('videoMangueras'));
-            document.getElementById('snapMangueras').style.display = 'none';
-            document.getElementById('closeMangueras').style.display = 'none';
-        });
-
-        document.getElementById('exportarPDF').addEventListener('click', exportarAPDF);
-        document.getElementById('enviarWhatsApp').addEventListener('click', enviarPorWhatsApp);
-        document.getElementById('volverInicio').addEventListener('click', () => {
-            window.location.href = 'Linea 3 - Segmentos.html';
-        });
     </script>
 </body>
 </html>
