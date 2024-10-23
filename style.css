@@ -1,41 +1,102 @@
-
-
-header{
-    display: flex;
-
-}
-
-.logo{
-    display: flex;
-    align-items: center;
-}
-
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1em;
 }
 
 button {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: 5px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #b3b1b6;
-    color: #ffffff;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 1em;
+    cursor: pointer;
 }
 
-video, canvas {
+img {
+    max-width: 100%;
+    height: auto;
     display: block;
-    margin-top: 20px;
-    max-width: 100%;
 }
-.foto {
-    margin-top: 20px;
-    max-width: 100%;
+
+/* Diseño del header con flexbox */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
-form {
+
+header .logo img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/* Agrupar los campos de entrada */
+.input-group {
     margin-bottom: 20px;
 }
-.espacio {
-    margin-top: 20px; /* Espacio entre elementos */
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Botones de eliminar imagen */
+.delete-button {
+    margin-top: 10px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+/* Adaptaciones para pantallas pequeñas */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
+
+    header .logo img {
+        margin-bottom: 10px;
+    }
+
+    header h1 {
+        font-size: 1.2em;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 1em;
+    }
 }
