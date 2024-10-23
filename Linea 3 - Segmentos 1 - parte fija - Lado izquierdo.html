@@ -17,32 +17,32 @@
 
     <div class="container">
         <div class="input-group">
-            <label for="distribuidor">Distribuidor:</label>
-            <input type="text" id="distribuidor">
-            <input type="file" accept="image/*" capture="camera" id="photo-distribuidor" onchange="previewPhoto(event, 'preview-distribuidor', 'delete-distribuidor')">
-            <img id="preview-distribuidor" src="" alt="Foto del Distribuidor" style="display:none;">
-            <button id="delete-distribuidor" class="delete-button" style="display:none;" onclick="deletePhoto('preview-distribuidor', 'photo-distribuidor', 'delete-distribuidor')">Eliminar Foto</button>
+            <label for="distribuidor1">Distribuidor:</label>
+            <input type="text" id="distribuidor1">
+            <input type="file" accept="image/*" capture="camera" id="Photo-distribuidor1" onchange="previewPhoto(event, 'preview-distribuidor1', 'delete-distribuidor1')">
+            <img id="preview-distribuidor1" src="" alt="Foto del distribuidor" style="display:none;">
+            <button id="delete-distribuidor1" class="delete-button" style="display:none;" onclick="deletePhoto('preview-distribuidor1', 'Photo-distribuidor1', 'delete-distribuidor1')">Eliminar Foto</button>
         </div>
         <br>
         <div class="input-group">
-            <label for="canerias">Canerías:</label>
-            <input type="text" id="canerias">
-            <input type="file" accept="image/*" capture="camera" id="photo-canerias" onchange="previewPhoto(event, 'preview-canerias', 'delete-canerias')">
-            <img id="preview-canerias" src="" alt="Foto de Canerías" style="display:none;">
-            <button id="delete-canerias" class="delete-button" style="display:none;" onclick="deletePhoto('preview-canerias', 'photo-canerias', 'delete-canerias')">Eliminar Foto</button>
+            <label for="canerias1">Canerías:</label>
+            <input type="text" id="canerias1">
+            <input type="file" accept="image/*" capture="camera" id="Photo-canerias1" onchange="previewPhoto(event, 'preview-canerias1', 'delete-canerias1')">
+            <img id="preview-canerias1" src="" alt="Foto de Canerías" style="display:none;">
+            <button id="delete-canerias1" class="delete-button" style="display:none;" onclick="deletePhoto('preview-canerias1', 'Photo-canerias1', 'delete-canerias1')">Eliminar Foto</button>
         </div>
         <br>
         <div class="input-group">
-            <label for="mangueras">Mangueras:</label>
-            <input type="text" id="mangueras">
-            <input type="file" accept="image/*" capture="camera" id="photo-mangueras" onchange="previewPhoto(event, 'preview-mangueras', 'delete-mangueras')">
-            <img id="preview-mangueras" src="" alt="Foto de Mangueras" style="display:none;">
-            <button id="delete-mangueras" class="delete-button" style="display:none;" onclick="deletePhoto('preview-mangueras', 'photo-mangueras', 'delete-mangueras')">Eliminar Foto</button>
+            <label for="mangueras1">Mangueras:</label>
+            <input type="text" id="mangueras1">
+            <input type="file" accept="image/*" capture="camera" id="Photo-mangueras1" onchange="previewPhoto(event, 'preview-mangueras1', 'delete-mangueras1')">
+            <img id="preview-mangueras1" src="" alt="Foto de mangueras" style="display:none;">
+            <button id="delete-mangueras1" class="delete-button" style="display:none;" onclick="deletePhoto('preview-mangueras1', 'Photo-mangueras1', 'delete-mangueras1')">Eliminar Foto</button>
         </div>
 
         <button onclick="guardarDatos()">Guardar Datos</button>
         <button onclick="limpiarCampos()">Limpiar Todo</button>
-        <button id="export-button">Exportar a PDF</button><br>
+        <button id="export-buttonclick">Exportar a PDF</button><br>
         <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
 	    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
     </div>
@@ -50,30 +50,30 @@
     <script>
         // Cargar datos del localStorage al cargar la página
         window.onload = function() {
-            const distribuidorComment = localStorage.getItem('distribuidor');
-            const caneriasComment = localStorage.getItem('canerias');
-            const manguerasComment = localStorage.getItem('mangueras');
-            const distribuidorPhoto = localStorage.getItem('distribuidorPhoto');
-            const caneriasPhoto = localStorage.getItem('caneriasPhoto');
-            const manguerasPhoto = localStorage.getItem('manguerasPhoto');
+            const distribuidor1Comment = localStorage.getItem('distribuidor1');
+            const canerias1Comment = localStorage.getItem('canerias1');
+            const mangueras1Comment = localStorage.getItem('mangueras1');
+            const distribuidor1Photo = localStorage.getItem('distribuidor1Photo');
+            const canerias1Photo = localStorage.getItem('canerias1Photo');
+            const mangueras1Photo = localStorage.getItem('mangueras1Photo');
 
-            if (distribuidorComment) {
-                document.getElementById('distribuidor').value = distribuidorComment;
-                document.getElementById('preview-distribuidor').src = distribuidorPhoto;
-                document.getElementById('preview-distribuidor').style.display = 'block';
-                document.getElementById('delete-distribuidor').style.display = 'inline-block';
+            if (distribuidor1Comment) {
+                document.getElementById('distribuidor1').value = distribuidor1Comment;
+                document.getElementById('preview-distribuidor1').src = distribuidor1Photo;
+                document.getElementById('preview-distribuidor1').style.display = 'block';
+                document.getElementById('delete-distribuidor1').style.display = 'inline-block';
             }
-            if (caneriasComment) {
-                document.getElementById('canerias').value = caneriasComment;
-                document.getElementById('preview-canerias').src = caneriasPhoto;
-                document.getElementById('preview-canerias').style.display = 'block';
-                document.getElementById('delete-canerias').style.display = 'inline-block';
+            if (canerias1Comment) {
+                document.getElementById('canerias1').value = canerias1Comment;
+                document.getElementById('preview-canerias1').src = canerias1Photo;
+                document.getElementById('preview-canerias1').style.display = 'block';
+                document.getElementById('delete-canerias1').style.display = 'inline-block';
             }
-            if (manguerasComment) {
-                document.getElementById('mangueras').value = manguerasComment;
-                document.getElementById('preview-mangueras').src = manguerasPhoto;
-                document.getElementById('preview-mangueras').style.display = 'block';
-                document.getElementById('delete-mangueras').style.display = 'inline-block';
+            if (mangueras1Comment) {
+                document.getElementById('mangueras1').value = mangueras1Comment;
+                document.getElementById('preview-mangueras1').src = mangueras1Photo;
+                document.getElementById('preview-mangueras1').style.display = 'block';
+                document.getElementById('delete-mangueras1').style.display = 'inline-block';
             }
         };
 
@@ -93,7 +93,7 @@
             reader.readAsDataURL(file);
             
             // Guardar el comentario en el localStorage
-            const inputId = event.target.id.replace('photo-', '');
+            const inputId = event.target.id.replace('Photo-', '');
             const comment = document.getElementById(inputId).value;
             localStorage.setItem(inputId, comment);
         }
@@ -109,38 +109,38 @@
             localStorage.removeItem(key);
         }
 
-        document.getElementById('export-button').addEventListener('click', () => {
+        document.getElementById('export-buttonclick').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFontSize(16);
 
             // Agregar el logo al PDF
             const logoImage = document.querySelector('.logo img').src; // Obtener la fuente del logo
-            doc.addImage(logoImage, 'PNG', 20, 10, 50, 30); // Ajusta la posición y el tamaño según sea necesario
+            doc.addImage(logoImage, 'PNG', 20, 10, 60, 25); // Ajusta la posición y el tamaño según sea necesario
 
             // Título del documento
             doc.text("Linea 3 - Segmento 1 - Parte Fija - Lado Izquierdo", 20, 50);
 
-            const distribuidorComment = localStorage.getItem('distribuidor') || '';
-            const caneriasComment = localStorage.getItem('canerias') || '';
-            const manguerasComment = localStorage.getItem('mangueras') || '';
+            const distribuidor1Comment = localStorage.getItem('distribuidor1') || '';
+            const canerias1Comment = localStorage.getItem('canerias1') || '';
+            const mangueras1Comment = localStorage.getItem('mangueras1') || '';
 
-            doc.text(`Distribuidor: ${distribuidorComment}`, 20, 70);
-            const distribuidorImg = localStorage.getItem('distribuidorPhoto');
-            if (distribuidorImg) {
-                doc.addImage(distribuidorImg, 'JPEG', 20, 80, 50, 50);
+            doc.text(`Distribuidor: ${distribuidor1Comment}`, 20, 70);
+            const distribuidor1Img = localStorage.getItem('distribuidor1Photo');
+            if (distribuidor1Img) {
+                doc.addImage(distribuidor1Img, 'JPEG', 20, 80, 50, 50);
             }
 
-            doc.text(`Canerías: ${caneriasComment}`, 20, 150);
-            const caneriasImg = localStorage.getItem('caneriasPhoto');
-            if (caneriasImg) {
-                doc.addImage(caneriasImg, 'JPEG', 20, 160, 50, 50);
+            doc.text(`Canerías: ${canerias1Comment}`, 20, 150);
+            const canerias1Img = localStorage.getItem('canerias1Photo');
+            if (canerias1Img) {
+                doc.addImage(canerias1Img, 'JPEG', 20, 160, 50, 50);
             }
 
-            doc.text(`Mangueras: ${manguerasComment}`, 20, 230);
-            const manguerasImg = localStorage.getItem('manguerasPhoto');
-            if (manguerasImg) {
-                doc.addImage(manguerasImg, 'JPEG', 20, 240, 50, 50);
+            doc.text(`Mangueras: ${mangueras1Comment}`, 20, 230);
+            const mangueras1Img = localStorage.getItem('mangueras1Photo');
+            if (mangueras1Img) {
+                doc.addImage(mangueras1Img, 'JPEG', 20, 240, 50, 50);
             }
 
             doc.save('Linea 3 - Segmento 1 - Parte Fija - Lado Izquierdo.pdf');
@@ -148,12 +148,12 @@
 
         function guardarDatos() {
             // Guardar comentarios
-            const distribuidorComment = document.getElementById('distribuidor').value;
-            const caneriasComment = document.getElementById('canerias').value;
-            const manguerasComment = document.getElementById('mangueras').value;
-            localStorage.setItem('distribuidor', distribuidorComment);
-            localStorage.setItem('canerias', caneriasComment);
-            localStorage.setItem('mangueras', manguerasComment);
+            const distribuidor1Comment = document.getElementById('distribuidor1').value;
+            const canerias1Comment = document.getElementById('canerias1').value;
+            const mangueras1Comment = document.getElementById('mangueras1').value;
+            localStorage.setItem('distribuidor1', distribuidor1Comment);
+            localStorage.setItem('canerias1', canerias1Comment);
+            localStorage.setItem('mangueras1', mangueras1Comment);
 
             // Fotos ya se guardan automáticamente en la función previewPhoto
             alert("Datos guardados correctamente.");
@@ -161,22 +161,22 @@
 
         function limpiarCampos() {
             // Limpiar campos de texto
-            document.getElementById('distribuidor').value = '';
-            document.getElementById('canerias').value = '';
-            document.getElementById('mangueras').value = '';
+            document.getElementById('distribuidor1').value = '';
+            document.getElementById('canerias1').value = '';
+            document.getElementById('mangueras1').value = '';
 
             // Limpiar fotos
-            deletePhoto('preview-distribuidor', 'photo-distribuidor', 'delete-distribuidor');
-            deletePhoto('preview-canerias', 'photo-canerias', 'delete-canerias');
-            deletePhoto('preview-mangueras', 'photo-mangueras', 'delete-mangueras');
+            deletePhoto('preview-distribuidor1', 'Photo-distribuidor1', 'delete-distribuidor1');
+            deletePhoto('preview-canerias1', 'Photo-canerias1', 'delete-canerias1');
+            deletePhoto('preview-mangueras1', 'Photo-mangueras1', 'delete-mangueras1');
 
             // Eliminar todos los datos del localStorage
-            localStorage.removeItem('distribuidor');
-            localStorage.removeItem('canerias');
-            localStorage.removeItem('mangueras');
-            localStorage.removeItem('distribuidorPhoto');
-            localStorage.removeItem('caneriasPhoto');
-            localStorage.removeItem('manguerasPhoto');
+            localStorage.removeItem('distribuidor1');
+            localStorage.removeItem('canerias1');
+            localStorage.removeItem('mangueras1');
+            localStorage.removeItem('distribuidor1Photo');
+            localStorage.removeItem('canerias1Photo');
+            localStorage.removeItem('mangueras1Photo');
 
             alert("Todos los datos han sido eliminados.");
         }
