@@ -16,7 +16,7 @@
     </header>
 
     <div class="container">
-        <!-- Uso de clases y ciclo para evitar repetición -->
+        <!-- Secciones de entrada de datos -->
         <div class="input-group" data-id="distribuidor2">
             <label for="distribuidor2">Distribuidor:</label>
             <input type="text" id="distribuidor2">
@@ -49,7 +49,7 @@
     </div>
 
     <script>
-        // Funcion genérica para cargar datos
+        // Cargar datos almacenados al cargar la página
         function cargarDatos() {
             document.querySelectorAll('.input-group').forEach(group => {
                 const id = group.dataset.id;
@@ -68,7 +68,7 @@
             });
         }
 
-        // Función genérica para previsualizar y guardar foto y texto
+        // Función para previsualizar y guardar foto y texto en localStorage
         function manejarInput(event) {
             const group = event.target.closest('.input-group');
             const id = group.dataset.id;
@@ -81,6 +81,7 @@
                 img.style.display = 'block';
                 group.querySelector('.delete-button').style.display = 'inline-block';
 
+                // Guardar imagen en localStorage
                 localStorage.setItem(id + 'Photo2', e.target.result);
             };
 
@@ -88,11 +89,12 @@
                 reader.readAsDataURL(file);
             }
 
+            // Guardar comentario en localStorage
             const comment = group.querySelector('input[type="text"]').value;
             localStorage.setItem(id, comment);
         }
 
-        // Eliminar foto
+        // Función para eliminar foto y limpiar localStorage
         function eliminarFoto(event) {
             const group = event.target.closest('.input-group');
             const id = group.dataset.id;
@@ -102,10 +104,11 @@
             group.querySelector('input[type="file"]').value = '';
             event.target.style.display = 'none';
 
+            // Eliminar datos del localStorage
             localStorage.removeItem(id + 'Photo2');
         }
 
-        // Guardar los datos en localStorage
+        // Guardar todos los datos en localStorage
         function guardarDatos() {
             document.querySelectorAll('.input-group').forEach(group => {
                 const id = group.dataset.id;
@@ -115,7 +118,7 @@
             alert("Datos guardados correctamente.");
         }
 
-        // Limpiar campos y localStorage
+        // Limpiar todos los campos y localStorage
         function limpiarCampos() {
             document.querySelectorAll('.input-group').forEach(group => {
                 const id = group.dataset.id;
@@ -126,7 +129,7 @@
             alert("Todos los datos han sido eliminados.");
         }
 
-        // Generar el PDF
+        // Exportar datos a PDF
         document.getElementById('export-buttonclick').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -151,7 +154,7 @@
             doc.save('Linea 3 - Segmento 1 - Parte Fija - Lado Derecho.pdf');
         });
 
-        // Redirección
+        // Funciones de redirección
         function volverAlInicio() {
             window.location.href = 'Linea 3 - Segmentos.html';
         }
@@ -159,7 +162,7 @@
             window.history.back();
         }
 
-        // Inicialización de eventos
+        // Inicializar eventos al cargar la página
         window.onload = function() {
             cargarDatos();
             document.querySelectorAll('input[type="file"]').forEach(input => {
