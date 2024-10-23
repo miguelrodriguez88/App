@@ -19,7 +19,7 @@
         <div class="input-group">
             <label for="distribuidor2">Distribuidor:</label>
             <input type="text" id="distribuidor2">
-            <input type="file" accept="image/*" id="Photo2-distribuidor2" onchange="preview2Photo2(event, 'preview2-distribuidor2', 'delete-distribuidor2')">
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-distribuidor2" onchange="preview2Photo2(event, 'preview2-distribuidor2', 'delete-distribuidor2')">
             <img id="preview2-distribuidor2" src="" alt="Foto del distribuidor2" style="display:none;">
             <button id="delete-distribuidor2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-distribuidor2', 'Photo2-distribuidor2', 'delete-distribuidor2')">Eliminar Foto</button>
         </div>
@@ -27,7 +27,7 @@
         <div class="input-group">
             <label for="canerias2">Canerías:</label>
             <input type="text" id="canerias2">
-            <input type="file" accept="image/*" id="Photo2-canerias2" onchange="preview2Photo2(event, 'preview2-canerias2', 'delete-canerias2')">
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-canerias2" onchange="preview2Photo2(event, 'preview2-canerias2', 'delete-canerias2')">
             <img id="preview2-canerias2" src="" alt="Foto de Canerías" style="display:none;">
             <button id="delete-canerias2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-canerias2', 'Photo2-canerias2', 'delete-canerias2')">Eliminar Foto</button>
         </div>
@@ -35,7 +35,7 @@
         <div class="input-group">
             <label for="mangueras2">Mangueras:</label>
             <input type="text" id="mangueras2">
-            <input type="file" accept="image/*" id="Photo2-mangueras2" onchange="preview2Photo2(event, 'preview2-mangueras2', 'delete-mangueras2')">
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-mangueras2" onchange="preview2Photo2(event, 'preview2-mangueras2', 'delete-mangueras2')">
             <img id="preview2-mangueras2" src="" alt="Foto de mangueras2" style="display:none;">
             <button id="delete-mangueras2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-mangueras2', 'Photo2-mangueras2', 'delete-mangueras2')">Eliminar Foto</button>
         </div>
@@ -44,7 +44,7 @@
         <button onclick="limpiarCampos()">Limpiar Todo</button>
         <button id="export-button2">Exportar a PDF</button><br>
         <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
-        <button onclick="volverAlInicio()">Volver a la Página Principal</button>
+	    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
     </div>
 
     <script>
