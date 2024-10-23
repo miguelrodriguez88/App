@@ -125,19 +125,19 @@
             const canerias2Comment = localStorage.getItem('canerias2') || '';
             const mangueras2Comment = localStorage.getItem('mangueras2') || '';
 
-            doc.text(Distribuidor: ${distribuidor2Comment}, 20, 70);
+            doc.text(`Distribuidor: ${distribuidor2Comment}`, 20, 70);
             const distribuidor2Img = localStorage.getItem('distribuidor2Photo2');
             if (distribuidor2Img) {
                 doc.addImage(distribuidor2Img, 'JPEG', 20, 80, 50, 50);
             }
 
-            doc.text(Canerías: ${canerias2Comment}, 20, 150);
+            doc.text(`Canerías: ${canerias2Comment}`, 20, 150);
             const canerias2Img = localStorage.getItem('canerias2Photo2');
             if (canerias2Img) {
                 doc.addImage(canerias2Img, 'JPEG', 20, 160, 50, 50);
             }
 
-            doc.text(Mangueras: ${mangueras2Comment}, 20, 230);
+            doc.text(`Mangueras: ${mangueras2Comment}`, 20, 230);
             const mangueras2Img = localStorage.getItem('mangueras2Photo2');
             if (mangueras2Img) {
                 doc.addImage(mangueras2Img, 'JPEG', 20, 240, 50, 50);
