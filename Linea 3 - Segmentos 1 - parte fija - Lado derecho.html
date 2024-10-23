@@ -131,28 +131,39 @@
 
         // Exportar datos a PDF
         document.getElementById('export-buttonclick').addEventListener('click', () => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFontSize(16);
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(16);
 
-            const logoImage = document.querySelector('.logo img').src;
-            doc.addImage(logoImage, 'PNG', 20, 10, 60, 25);
-            doc.text("Linea 3 - Segmento 1 - Parte Fija - Lado Derecho", 20, 50);
+    // Obtener la imagen del logo en Base64
+    const logoImage = document.querySelector('.logo img').src;
+    
+    // Verifica que el logo está en Base64
+    if (logoImage.startsWith('data:image')) {
+        doc.addImage(logoImage, 'PNG', 20, 10, 60, 25); // Ajusta la posición y el tamaño según sea necesario
+    } else {
+        alert("No se puede exportar el logo debido a restricciones de CORS.");
+    }
 
-            document.querySelectorAll('.input-group').forEach((group, index) => {
-                const id = group.dataset.id;
-                const comment = localStorage.getItem(id) || '';
-                const photo = localStorage.getItem(id + 'Photo2');
+    doc.text("Linea 3 - Segmento 1 - Parte Fija - Lado Derecho", 20, 50);
 
-                doc.text(`${id}: ${comment}`, 20, 70 + index * 80);
+    document.querySelectorAll('.input-group').forEach((group, index) => {
+        const id = group.dataset.id;
+        const comment = localStorage.getItem(id) || '';
+        const photo = localStorage.getItem(id + 'Photo2');
 
-                if (photo) {
-                    doc.addImage(photo, 'JPEG', 20, 80 + index * 80, 50, 50);
-                }
-            });
+        doc.text(`${id}: ${comment}`, 20, 70 + index * 80);
 
-            doc.save('Linea 3 - Segmento 1 - Parte Fija - Lado Derecho.pdf');
-        });
+        if (photo && photo.startsWith('data:image')) {
+            doc.addImage(photo, 'JPEG', 20, 80 + index * 80, 50, 50);
+        } else {
+            alert(`No se puede exportar la imagen para ${id} debido a restricciones de CORS.`);
+        }
+    });
+
+    doc.save('Linea 3 - Segmento 1 - Parte Fija - Lado Derecho.pdf');
+});
+
 
         // Funciones de redirección
         function volverAlInicio() {
