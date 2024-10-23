@@ -16,159 +16,178 @@
     </header>
 
     <div class="container">
-        <!-- Uso de clases y ciclo para evitar repetición -->
-        <div class="input-group" data-id="distribuidor2">
+        <div class="input-group">
             <label for="distribuidor2">Distribuidor:</label>
             <input type="text" id="distribuidor2">
-            <input type="file" accept="image/*" id="Photo2-distribuidor2">
-            <img id="preview2-distribuidor2" style="display:none;">
-            <button id="delete-distribuidor2" class="delete-button" style="display:none;">Eliminar Foto</button>
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-distribuidor2" onchange="preview2Photo2(event, 'preview2-distribuidor2', 'delete-distribuidor2')">
+            <img id="preview2-distribuidor2" src="" alt="Foto del distribuidor2" style="display:none;">
+            <button id="delete-distribuidor2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-distribuidor2', 'Photo2-distribuidor2', 'delete-distribuidor2')">Eliminar Foto</button>
         </div>
-
-        <div class="input-group" data-id="canerias2">
+        <br>
+        <div class="input-group">
             <label for="canerias2">Canerías:</label>
             <input type="text" id="canerias2">
-            <input type="file" accept="image/*" id="Photo2-canerias2">
-            <img id="preview2-canerias2" style="display:none;">
-            <button id="delete-canerias2" class="delete-button" style="display:none;">Eliminar Foto</button>
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-canerias2" onchange="preview2Photo2(event, 'preview2-canerias2', 'delete-canerias2')">
+            <img id="preview2-canerias2" src="" alt="Foto de Canerías" style="display:none;">
+            <button id="delete-canerias2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-canerias2', 'Photo2-canerias2', 'delete-canerias2')">Eliminar Foto</button>
         </div>
-
-        <div class="input-group" data-id="mangueras2">
+        <br>
+        <div class="input-group">
             <label for="mangueras2">Mangueras:</label>
             <input type="text" id="mangueras2">
-            <input type="file" accept="image/*" id="Photo2-mangueras2">
-            <img id="preview2-mangueras2" style="display:none;">
-            <button id="delete-mangueras2" class="delete-button" style="display:none;">Eliminar Foto</button>
+            <input type="file" accept="image/*" capture="camera2" id="Photo2-mangueras2" onchange="preview2Photo2(event, 'preview2-mangueras2', 'delete-mangueras2')">
+            <img id="preview2-mangueras2" src="" alt="Foto de mangueras2" style="display:none;">
+            <button id="delete-mangueras2" class="delete-button" style="display:none;" onclick="deletePhoto2('preview2-mangueras2', 'Photo2-mangueras2', 'delete-mangueras2')">Eliminar Foto</button>
         </div>
 
         <button onclick="guardarDatos()">Guardar Datos</button>
         <button onclick="limpiarCampos()">Limpiar Todo</button>
         <button id="export-buttonclick">Exportar a PDF</button><br>
         <button onclick="volverAPaginaAnterior()">Volver a Página Anterior</button>
-        <button onclick="volverAlInicio()">Volver a la Página Principal</button>
+	    <button onclick="volverAlInicio()">Volver a la Página Principal</button>
     </div>
 
     <script>
-        // Funcion genérica para cargar datos
-        function cargarDatos() {
-            document.querySelectorAll('.input-group').forEach(group => {
-                const id = group.dataset.id;
-                const comment = localStorage.getItem(id) || '';
-                const photo = localStorage.getItem(id + 'Photo2') || '';
+        // Cargar datos del localStorage al cargar la página
+        window.onload = function() {
+            const distribuidor2Comment = localStorage.getItem('distribuidor2');
+            const canerias2Comment = localStorage.getItem('canerias2');
+            const mangueras2Comment = localStorage.getItem('mangueras2');
+            const distribuidor2Photo2 = localStorage.getItem('distribuidor2Photo2');
+            const canerias2Photo2 = localStorage.getItem('canerias2Photo2');
+            const mangueras2Photo2 = localStorage.getItem('mangueras2Photo2');
 
-                if (comment) {
-                    group.querySelector('input[type="text"]').value = comment;
-                }
-                if (photo) {
-                    const img = group.querySelector('img');
-                    img.src = photo;
-                    img.style.display = 'block';
-                    group.querySelector('.delete-button').style.display = 'inline-block';
-                }
-            });
-        }
+            if (distribuidor2Comment) {
+                document.getElementById('distribuidor2').value = distribuidor2Comment;
+                document.getElementById('preview2-distribuidor2').src = distribuidor2Photo2;
+                document.getElementById('preview2-distribuidor2').style.display = 'block';
+                document.getElementById('delete-distribuidor2').style.display = 'inline-block';
+            }
+            if (canerias2Comment) {
+                document.getElementById('canerias2').value = canerias2Comment;
+                document.getElementById('preview2-canerias2').src = canerias2Photo2;
+                document.getElementById('preview2-canerias2').style.display = 'block';
+                document.getElementById('delete-canerias2').style.display = 'inline-block';
+            }
+            if (mangueras2Comment) {
+                document.getElementById('mangueras2').value = mangueras2Comment;
+                document.getElementById('preview2-mangueras2').src = mangueras2Photo2;
+                document.getElementById('preview2-mangueras2').style.display = 'block';
+                document.getElementById('delete-mangueras2').style.display = 'inline-block';
+            }
+        };
 
-        // Función genérica para previsualizar y guardar foto y texto
-        function manejarInput(event) {
-            const group = event.target.closest('.input-group');
-            const id = group.dataset.id;
+        function preview2Photo2(event, preview2Id, deleteId) {
             const file = event.target.files[0];
             const reader = new FileReader();
-
             reader.onload = function(e) {
-                const img = group.querySelector('img');
-                img.src = e.target.result;
-                img.style.display = 'block';
-                group.querySelector('.delete-button').style.display = 'inline-block';
-
-                localStorage.setItem(id + 'Photo2', e.target.result);
+                const imgElement = document.getElementById(preview2Id);
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block';
+                document.getElementById(deleteId).style.display = 'inline-block'; // Muestra el botón de eliminar
+                
+                // Guardar la imagen en el localStorage
+                const key = preview2Id.replace('preview2-', '') + 'Photo2';
+                localStorage.setItem(key, e.target.result);
             };
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-
-            const comment = group.querySelector('input[type="text"]').value;
-            localStorage.setItem(id, comment);
+            reader.readAsDataURL(file);
+            
+            // Guardar el comentario en el localStorage
+            const inputId = event.target.id.replace('Photo2-', '');
+            const comment = document.getElementById(inputId).value;
+            localStorage.setItem(inputId, comment);
         }
 
-        // Eliminar foto
-        function eliminarFoto(event) {
-            const group = event.target.closest('.input-group');
-            const id = group.dataset.id;
-
-            group.querySelector('img').src = '';
-            group.querySelector('img').style.display = 'none';
-            group.querySelector('input[type="file"]').value = '';
-            event.target.style.display = 'none';
-
-            localStorage.removeItem(id + 'Photo2');
+        function deletePhoto2(preview2Id, fileId, deleteId) {
+            document.getElementById(preview2Id).src = '';
+            document.getElementById(preview2Id).style.display = 'none';
+            document.getElementById(fileId).value = ''; // Limpia el archivo
+            document.getElementById(deleteId).style.display = 'none'; // Oculta el botón de eliminar
+            
+            // Eliminar del localStorage
+            const key = preview2Id.replace('preview2-', '') + 'Photo2';
+            localStorage.removeItem(key);
         }
 
-        // Guardar los datos en localStorage
-        function guardarDatos() {
-            document.querySelectorAll('.input-group').forEach(group => {
-                const id = group.dataset.id;
-                const comment = group.querySelector('input[type="text"]').value;
-                localStorage.setItem(id, comment);
-            });
-            alert("Datos guardados correctamente.");
-        }
-
-        // Limpiar campos y localStorage
-        function limpiarCampos() {
-            document.querySelectorAll('.input-group').forEach(group => {
-                const id = group.dataset.id;
-                group.querySelector('input[type="text"]').value = '';
-                eliminarFoto({ target: group.querySelector('.delete-button') });
-                localStorage.removeItem(id);
-            });
-            alert("Todos los datos han sido eliminados.");
-        }
-
-        // Generar el PDF
         document.getElementById('export-buttonclick').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFontSize(16);
 
-            const logoImage = document.querySelector('.logo img').src;
-            doc.addImage(logoImage, 'PNG', 20, 10, 60, 25);
+            // Agregar el logo al PDF
+            const logoImage = document.querySelector('.logo img').src; // Obtener la fuente del logo
+            doc.addImage(logoImage, 'PNG', 20, 10, 60, 25); // Ajusta la posición y el tamaño según sea necesario
+
+            // Título del documento
             doc.text("Linea 3 - Segmento 1 - Parte Fija - Lado Derecho", 20, 50);
 
-            document.querySelectorAll('.input-group').forEach((group, index) => {
-                const id = group.dataset.id;
-                const comment = localStorage.getItem(id) || '';
-                const photo = localStorage.getItem(id + 'Photo2');
+            const distribuidor2Comment = localStorage.getItem('distribuidor2') || '';
+            const canerias2Comment = localStorage.getItem('canerias2') || '';
+            const mangueras2Comment = localStorage.getItem('mangueras2') || '';
 
-                doc.text(`${id}: ${comment}`, 20, 70 + index * 80);
+            doc.text(Distribuidor: ${distribuidor2Comment}, 20, 70);
+            const distribuidor2Img = localStorage.getItem('distribuidor2Photo2');
+            if (distribuidor2Img) {
+                doc.addImage(distribuidor2Img, 'JPEG', 20, 80, 50, 50);
+            }
 
-                if (photo) {
-                    doc.addImage(photo, 'JPEG', 20, 80 + index * 80, 50, 50);
-                }
-            });
+            doc.text(Canerías: ${canerias2Comment}, 20, 150);
+            const canerias2Img = localStorage.getItem('canerias2Photo2');
+            if (canerias2Img) {
+                doc.addImage(canerias2Img, 'JPEG', 20, 160, 50, 50);
+            }
+
+            doc.text(Mangueras: ${mangueras2Comment}, 20, 230);
+            const mangueras2Img = localStorage.getItem('mangueras2Photo2');
+            if (mangueras2Img) {
+                doc.addImage(mangueras2Img, 'JPEG', 20, 240, 50, 50);
+            }
 
             doc.save('Linea 3 - Segmento 1 - Parte Fija - Lado Derecho.pdf');
         });
 
-        // Redirección
-        function volverAlInicio() {
-            window.location.href = 'Linea 3 - Segmentos.html';
-        }
-        function volverAPaginaAnterior() {
-            window.history.back();
+        function guardarDatos() {
+            // Guardar comentarios
+            const distribuidor2Comment = document.getElementById('distribuidor2').value;
+            const canerias2Comment = document.getElementById('canerias2').value;
+            const mangueras2Comment = document.getElementById('mangueras2').value;
+            localStorage.setItem('distribuidor2', distribuidor2Comment);
+            localStorage.setItem('canerias2', canerias2Comment);
+            localStorage.setItem('mangueras2', mangueras2Comment);
+
+            // Fotos ya se guardan automáticamente en la función preview2Photo2
+            alert("Datos guardados correctamente.");
         }
 
-        // Inicialización de eventos
-        window.onload = function() {
-            cargarDatos();
-            document.querySelectorAll('input[type="file"]').forEach(input => {
-                input.addEventListener('change', manejarInput);
-            });
-            document.querySelectorAll('.delete-button').forEach(button => {
-                button.addEventListener('click', eliminarFoto);
-            });
-        };
+        function limpiarCampos() {
+            // Limpiar campos de texto
+            document.getElementById('distribuidor2').value = '';
+            document.getElementById('canerias2').value = '';
+            document.getElementById('mangueras2').value = '';
+
+            // Limpiar fotos
+            deletePhoto2('preview2-distribuidor2', 'Photo2-distribuidor2', 'delete-distribuidor2');
+            deletePhoto2('preview2-canerias2', 'Photo2-canerias2', 'delete-canerias2');
+            deletePhoto2('preview2-mangueras2', 'Photo2-mangueras2', 'delete-mangueras2');
+
+            // Eliminar todos los datos del localStorage
+            localStorage.removeItem('distribuidor2');
+            localStorage.removeItem('canerias2');
+            localStorage.removeItem('mangueras2');
+            localStorage.removeItem('distribuidor2Photo2');
+            localStorage.removeItem('canerias2Photo2');
+            localStorage.removeItem('mangueras2Photo2');
+
+            alert("Todos los datos han sido eliminados.");
+        }
+
+        function volverAlInicio() {
+            window.location.href = 'Linea 3 - Segmentos.html'; // Redirige a la página principal
+        }
+
+        function volverAPaginaAnterior() {
+            window.history.back(); // Vuelve a la página anterior
+        }
     </script>
 </body>
 </html>
